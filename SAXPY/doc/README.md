@@ -1,7 +1,7 @@
 # SAXPY
-OpenCL implementation of its "Hello-World": *saxpy* - Single precision real Alpha X plus Y.
+OpenCL implementation of its "Hello-World": *saxpy* - Single precision real *Alpha X plus Y*.
 
-# Algorithm
+## Algorithm
 A simple C implementation of saxpy:
 ```C
     void saxpy(int n, float a, float *b, float *c){
