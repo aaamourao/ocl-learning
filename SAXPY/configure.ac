@@ -12,8 +12,7 @@ AC_PROG_CXX
 AC_PROG_CC
 
 # Checks for libraries.
-# FIXME: Replace `main' with a function in `-lOpenCL':
-AC_CHECK_LIB([OpenCL], [main])
+AC_CHECK_LIB([OpenCL], [clGetPlatformIDs])
 
 # Checks for header files.
 AC_CHECK_HEADERS([stdlib.h])
