@@ -23,7 +23,7 @@ const char *saxpy_kernel =
 "    C[index] = alpha* A[index] + B[index];          \n"
 "}                                                   \n";
 
-int main(void) {
+int main(void){
     int i;
     // Allocate space for vectors A, B and C
     float alpha = 2.0;
