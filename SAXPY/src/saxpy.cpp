@@ -107,7 +107,7 @@ int main(void){
 
     // Execute the OpenCL kernel on the list
     size_t global_size = VECTOR_SIZE; // Process the entire lists
-    size_t local_size = 64;                     // Process the one item at a time
+    size_t local_size = 64;           // Process the one item at a time
     clStatus = clEnqueueNDRangeKernel(command_queue, kernel, 1,
             NULL, &global_size, &local_size, 0, NULL, NULL);
 
