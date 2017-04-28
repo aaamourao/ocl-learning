@@ -14,7 +14,7 @@ Both **C++** and **C** samples were added.
 ## Algorithm
 A simple C implementation of a vector addition:
 ```C
-    void vecadd(int n, float *a, float *b, float *c){
+    void vecadd(int n, float *a, float *b, float *c) {
         for(int i = 0, i < n; ++i){
             c[i] = a[i] + b[i];
         }
