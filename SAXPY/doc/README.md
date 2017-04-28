@@ -4,7 +4,7 @@ OpenCL implementation of its "Hello-World": **saxpy** - Single precision real *A
 ## Algorithm
 A simple **C** implementation of **saxpy**:
 ```C
-    void saxpy(int n, float a, float *x, float *y, float *z){
+    void saxpy(int n, float a, float *x, float *y, float *z) {
         for(int i = 0, i < n; ++i){
             z[i] = a*x[i] + y[i];
         }
