@@ -14,16 +14,17 @@
  * device: C = A + B
  */
 const char *vecadd_kernel =
-"__kernel                        \n"
-"void vecadd(__global int *A,    \n"
-"               __global int *B, \n"
-"               __global int *C) \n"
-"{                               \n"
-"    int idx = get_global_id(0); \n"
-"    C[idx] = A[idx] + B[idx];   \n"
-"}                               \n";
+    "__kernel                        \n"
+    "void vecadd(__global int *A,    \n"
+    "               __global int *B, \n"
+    "               __global int *C) \n"
+    "{                               \n"
+    "    int idx = get_global_id(0); \n"
+    "    C[idx] = A[idx] + B[idx];   \n"
+    "}                               \n";
 
-int main(void){
+int main(void)
+{
     // Constants
     // ------------------------------------------------------------------------
     // Elements in each array
@@ -41,7 +42,7 @@ int main(void){
     // Set their values
     // Obs: it's C code: i will be used again, and there is no ++i
     unsigned int i;
-    for(i = 0; i < elements; i++){
+    for (i = 0; i < elements; i++) {
         A[i] = i;
         B[i] = i;
     }
@@ -52,7 +53,7 @@ int main(void){
 
     cl_int clStatus = clGetPlatformIDs(0, NULL, &num_platforms);
     platforms = (cl_platform_id *)
-        malloc(sizeof(cl_platform_id)*num_platforms);
+                malloc(sizeof(cl_platform_id)*num_platforms);
     clStatus = clGetPlatformIDs(num_platforms, platforms, NULL);
 
     // Get devices list
@@ -60,11 +61,11 @@ int main(void){
     cl_uint num_devices = 0;
 
     clStatus = clGetDeviceIDs(platforms[0], CL_DEVICE_TYPE_ALL, 0,
-            NULL, &num_devices);
+                              NULL, &num_devices);
     devices = (cl_device_id *)
-        malloc(sizeof(cl_device_id)*num_devices);
+              malloc(sizeof(cl_device_id)*num_devices);
     clStatus = clGetDeviceIDs(platforms[0], CL_DEVICE_TYPE_ALL, num_devices,
-            devices, NULL);
+                              devices, NULL);
 
     // Create a context and associate it with the devices
     cl_context context;
@@ -84,17 +85,17 @@ int main(void){
     // Output buffer
     cl_mem bufC;
     bufC = clCreateBuffer(context, CL_MEM_WRITE_ONLY, datasize,
-            NULL, &clStatus);
+                          NULL, &clStatus);
 
     // Write input arrays to the device buffers
     clStatus = clEnqueueWriteBuffer(cmdQueue, bufA, CL_FALSE, 0, datasize,
-            A, 0, NULL, NULL);
+                                    A, 0, NULL, NULL);
     clStatus = clEnqueueWriteBuffer(cmdQueue, bufB, CL_FALSE, 0, datasize,
-            B, 0, NULL, NULL);
+                                    B, 0, NULL, NULL);
 
     // Set program from OpenCL kernel source
     cl_program program = clCreateProgramWithSource(context, 1,
-            (const char **)&vecadd_kernel, NULL, &clStatus);
+                         (const char **)&vecadd_kernel, NULL, &clStatus);
 
     // Build it
     clStatus = clBuildProgram(program, num_devices, devices, NULL, NULL, NULL);
@@ -113,7 +114,7 @@ int main(void){
 
     // Execute the kernel on the device
     clStatus = clEnqueueNDRangeKernel(cmdQueue, kernel, 1, NULL,
-            workGroupSize, NULL, 0, NULL, NULL);
+                                      workGroupSize, NULL, 0, NULL, NULL);
 
     // Get the result from the device
     clEnqueueReadBuffer(cmdQueue, bufC, CL_TRUE, 0, datasize, C, 0, NULL, NULL);
@@ -125,13 +126,13 @@ int main(void){
      *
      */
     unsigned int result = 1;
-    for(i = 0; i < elements; i++) {
-        if(C[i] != i+i){
+    for (i = 0; i < elements; i++) {
+        if (C[i] != i+i) {
             result = 0;
             break;
         }
     }
-    if(result){
+    if (result) {
         printf("Output is correct\n");
     } else {
         printf("Something got wrong...\n");
